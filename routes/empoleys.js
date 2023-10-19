@@ -69,6 +69,22 @@ employeRouter.put('/:id', async (req, res) => {
     }
 });
 
+// Delete Empoyer
+
+employeRouter.delete('/:id', async (req, res) => {
+    try {
+        await sequelize.query('DELETE FROM employer WHERE id = :id', {
+            replacements: { id: req.params.id },
+            type: sequelize.QueryTypes.DELETE,
+        });
+        
+        res.status(204).end(); // Return a 204 No Content status upon successful deletion
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: "An error occurred while deleting an employer.", details: error.message });
+    }
+});
+
 
 
 
